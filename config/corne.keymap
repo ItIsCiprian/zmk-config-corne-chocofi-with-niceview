@@ -10,86 +10,92 @@
 
 / {
     behaviors {
+        /* Homerow modifier behavior settings */
         hm: homerow_mods {
             compatible = "zmk,behavior-hold-tap";
             label = "HOMEROW_MODS";
-            bindings = <&kp>, <&kp>;
-
+            bindings = <&kp>, <&kp>;  // Key press bindings
             #binding-cells = <2>;
-            tapping-term-ms = <200>;
-            flavor = "tap-preferred";
+            tapping-term-ms = <200>;   // Tapping term for hold-tap
+            flavor = "tap-preferred";  // Prefer tap over hold
             require-prior-idle-ms = <125>;
             quick-tap-ms = <200>;
         };
 
+        /* Shift hold-tap behavior for homerow */
         shifthr: shifthr {
             compatible = "zmk,behavior-hold-tap";
             label = "SHIFTHR";
-            bindings = <&kp>, <&kp>;
-
+            bindings = <&kp>, <&kp>;  // Key press bindings
             #binding-cells = <2>;
-            tapping-term-ms = <185>;
-            flavor = "tap-preferred";
+            tapping-term-ms = <185>;   // Tapping term for hold-tap
+            flavor = "tap-preferred";  // Prefer tap over hold
             quick-tap-ms = <185>;
         };
 
+        /* Weak modifier behavior settings */
         weak: weak {
             compatible = "zmk,behavior-hold-tap";
             label = "WEAK";
-            bindings = <&kp>, <&kp>;
-
+            bindings = <&kp>, <&kp>;  // Key press bindings
             #binding-cells = <2>;
-            tapping-term-ms = <230>;
-            flavor = "tap-preferred";
+            tapping-term-ms = <230>;   // Tapping term for hold-tap
+            flavor = "tap-preferred";  // Prefer tap over hold
             require-prior-idle-ms = <125>;
             quick-tap-ms = <230>;
         };
 
+        /* Tap dance behavior for backspace */
         backspace: backspace {
             compatible = "zmk,behavior-tap-dance";
             label = "BACKSPACE";
             #binding-cells = <0>;
-            bindings = <&kp BACKSPACE>, <&kp LC(BACKSPACE)>;
+            bindings = <&kp BACKSPACE>, <&kp LC(BACKSPACE)>;  // Key press bindings for tap dance
         };
     };
 
     combos {
         compatible = "zmk,combos";
 
+        /* Caps lock combo */
         caps {
-            bindings = <&kp CAPS>;
-            key-positions = <16 19>;
+            bindings = <&kp CAPS>;  // Bind caps lock
+            key-positions = <16 19>;  // Define key positions for combo
         };
 
+        /* Escape combo */
         jk_fix {
-            bindings = <&kp ESCAPE>;
-            key-positions = <31 32>;
+            bindings = <&kp ESCAPE>;  // Bind escape key
+            key-positions = <31 32>;  // Define key positions for combo
         };
 
+        /* Underscore combo */
         under {
-            bindings = <&kp UNDER>;
-            key-positions = <28 31>;
+            bindings = <&kp UNDER>;  // Bind underscore key
+            key-positions = <28 31>;  // Define key positions for combo
         };
 
+        /* Dash combo */
         dash {
-            bindings = <&kp MINUS>;
-            key-positions = <4 7>;
+            bindings = <&kp MINUS>;  // Bind minus key
+            key-positions = <4 7>;   // Define key positions for combo
         };
     };
 
     macros {
+        /* Save macro */
         save: save {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&macro_tap>, <&kp ESCAPE &kp COLON &kp W &kp ENTER>;
-
+            bindings = <&macro_tap>, <&kp ESCAPE &kp COLON &kp W &kp ENTER>;  // Key sequence for save
             label = "SAVE";
         };
 
+        /* Email macro */
         email: email {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&none &kp J &kp O &kp S &kp H &kp AT &kp J &kp O &kp S &kp H &kp B &kp L &kp A &kp I &kp S &kp DOT &kp C &kp O &kp M>;
+            bindings = <&none &kp J &kp O &kp S &kp H &kp AT &kp J &kp O &kp S &kp H &kp B &kp L &kp A &kp I &kp S &kp DOT &kp C &kp O &kp M>;  // Key sequence for email
             label = "EMAIL";
         };
     };
@@ -97,6 +103,7 @@
     keymap {
         compatible = "zmk,keymap";
 
+        /* Home layer keymap */
         home {
             // -----------------------------------------------------------------------------------------
             // |  TAB |  Q  |  W  |  E  |  R  |  T  |   |  Y  |  U   |  I  |  O  |  P  | BKSP |
@@ -105,15 +112,16 @@
             //                    | GUI | LWR | SPC |   | ENT | RSE  | ALT |
 
             bindings = <
-&none  &kp Q              &kp W             &kp F                     &kp P                  &kp B        &kp J        &kp L              &kp U             &kp Y              &kp APOS             &none
-&none  &weak LEFT_META A  &weak LEFT_ALT R  &shifthr LEFT_CONTROL S   &shifthr LEFT_SHIFT T  &kp G        &kp M        &shifthr RSHIFT N  &shifthr RCTRL E  &weak RIGHT_ALT I  &kp O                &none
-&none  &kp Z              &kp X             &kp C                     &kp D                  &kp V        &kp K        &kp H              &kp COMMA         &kp DOT            &hm SEMICOLON SLASH  &none
-                                            &hm LC(BACKSPACE) ESCAPE  &lt 1 BACKSPACE        &lt 2 TAB    &lt 2 ENTER  &lt 1 SPACE        &save
+                &none  &kp Q              &kp W             &kp F                     &kp P                  &kp B        &kp J        &kp L              &kp U             &kp Y              &kp APOS             &none
+                &none  &weak LEFT_META A  &weak LEFT_ALT R  &shifthr LEFT_CONTROL S   &shifthr LEFT_SHIFT T  &kp G        &kp M        &shifthr RSHIFT N  &shifthr RCTRL E  &weak RIGHT_ALT I  &kp O                &none
+                &none  &kp Z              &kp X             &kp C                     &kp D                  &kp V        &kp K        &kp H              &kp COMMA         &kp DOT            &hm SEMICOLON SLASH  &none
+                                                &hm LC(BACKSPACE) ESCAPE  &lt 1 BACKSPACE        &lt 2 TAB    &lt 2 ENTER  &lt 1 SPACE        &save
             >;
 
             label = "home";
         };
 
+        /* Number layer keymap */
         num {
             // -----------------------------------------------------------------------------------------
             // |  TAB |  !  |  @  |  #  |  $  |  %  |   |  ^  |  &  |  *  |  (  |  )  | BKSP |
@@ -122,21 +130,22 @@
             //                    | GUI |     | SPC |   | ENT |     | ALT |
 
             bindings = <
-&none  &kp EXCL            &kp AT               &kp LEFT_BRACE              &kp RIGHT_BRACE                   &kp PIPE     &kp PLUS   &kp NUMBER_7  &kp N8        &kp N9                    &kp ASTERISK   &none
-&none  &hm LEFT_META HASH  &hm LEFT_ALT DOLLAR  &hm LCTRL LEFT_PARENTHESIS  &hm LEFT_SHIFT RIGHT_PARENTHESIS  &kp GRAVE    &kp MINUS  &kp NUMBER_4  &kp NUMBER_5  &kp NUMBER_6              &kp COLON      &none
-&none  &kp PERCENT         &kp CARET            &kp LEFT_BRACKET            &kp RIGHT_BRACKET                 &kp TILDE    &kp EQUAL  &kp NUMBER_1  &kp NUMBER_2  &shifthr PERIOD NUMBER_3  &kp BACKSLASH  &none
+                &none  &kp EXCL            &kp AT               &kp LEFT_BRACE              &kp RIGHT_BRACE                   &kp PIPE     &kp PLUS   &kp NUMBER_7  &kp N8        &kp N9                    &kp ASTERISK   &none
+                &none  &hm LEFT_META HASH  &hm LEFT_ALT DOLLAR  &hm LCTRL LEFT_PARENTHESIS  &hm LEFT_SHIFT RIGHT_PARENTHESIS  &kp GRAVE    &kp MINUS  &kp NUMBER_4  &kp NUMBER_5  &kp NUMBER_6              &kp COLON      &none
+                &none  &kp PERCENT         &kp CARET            &kp LEFT_BRACKET            &kp RIGHT_BRACKET                 &kp TILDE    &kp EQUAL  &kp NUMBER_1  &kp NUMBER_2  &shifthr PERIOD NUMBER_3  &kp BACKSLASH  &none
                                                 &none                       &kp LC(BACKSPACE)                 &kp DEL      &kp RET    &kp SPACE     &kp N0
             >;
 
             label = "num";
         };
 
+        /* Navigation layer keymap */
         nav {
             bindings = <
-&trans  &kp F1            &kp F2           &kp F3        &kp F4             &email             &kp LS(H)       &kp PAGE_DOWN  &kp PG_UP     &kp LS(L)  &none  &trans
-&trans  &hm LEFT_META F5  &hm LEFT_ALT F6  &hm LCTRL F7  &hm LEFT_SHIFT F8  &hm LC(V) LC(C)    &kp LEFT_ARROW  &kp DOWN       &kp UP_ARROW  &kp RIGHT  &none  &trans
-&trans  &kp F9            &kp F10          &kp F11       &kp F12            &kp PSCRN          &kp LA(H)       &kp LA(TAB)    &none         &kp LA(L)  &none  &trans
-                                           &bt BT_CLR    &bt BT_NXT         &trans             &trans          &trans         &trans
+                &trans  &kp F1            &kp F2           &kp F3        &kp F4             &email             &kp LS(H)       &kp PAGE_DOWN  &kp PG_UP     &kp LS(L)  &none  &trans
+                &trans  &hm LEFT_META F5  &hm LEFT_ALT F6  &hm LCTRL F7  &hm LEFT_SHIFT F8  &hm LC(V) LC(C)    &kp LEFT_ARROW  &kp DOWN       &kp UP_ARROW  &kp RIGHT  &none  &trans
+                &trans  &kp F9            &kp F10          &kp F11       &kp F12            &kp PSCRN          &kp LA(H)       &kp LA(TAB)    &none         &kp LA(L)  &none  &trans
+                                           &bt BT_CLR       &bt BT_NXT     &trans             &trans             &trans          &trans
             >;
 
             label = "nav";
